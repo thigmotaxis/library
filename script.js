@@ -13,20 +13,24 @@ function addBookToLibrary(book) {
 }
 
 function createBook() {
-  // add protective logic to prevent submission of items with any undefined fields
-  let libraryBook = new Book()
-  return libraryBook
-}
+  let libraryBook = new Book();
+  return libraryBook;
+};
 
 // creates event listener to create new books and add them to the library array
 
-function createButtonListeners() {
+function createButtonListener() {
   const btn = document.querySelector("#btn");
   btn.onclick = () => {
     // calls createBook which creates a libraryBook object which is passed to addBookToLibrary, which pushes the object to the myLibrary array
-    addBookToLibrary(createBook())
+    let libraryBook = createBook()
+    // lines 28-29 check the object created in 26 for empty properties and only pushes it to the myLibrary array if all properties have values
+    for (let key in libraryBook) {
+      if (libraryBook[key] === "") return;
+    };
+    addBookToLibrary(libraryBook)
     console.log(myLibrary)
   }
 }
 
-createButtonListeners()
+createButtonListener()
