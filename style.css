@@ -53,7 +53,7 @@ body {
 	height: 100vh;
 	display: grid;
 	grid-template-columns: 4fr 1fr;
-	grid-template-rows: 1fr repeat(4, 2fr) 1fr;
+	grid-template-rows: 1.5fr repeat(4, 2fr) 1fr;
 	grid-template-areas:
 	"header  header"
 	"library counter"
@@ -63,10 +63,30 @@ body {
 	"footer  footer";
 }
 
+/* begin header styles */
 .header {
 	grid-area: header;
 	background-color: blue;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: white;
 }
+
+.title, .subtitle {
+	padding: 10px;
+}
+
+.title {
+	font-size: 3rem;
+}
+
+.subtitle {
+	font-size: 1.5rem;
+}
+
+/* end header styles */
 
 .inputForm {
 	grid-area: form;
@@ -94,11 +114,12 @@ body {
   border-radius: 20px;
 }
 
+/* begin footer styles */
 .footer {
 	grid-area: footer;
 	display: flex;
 	background-color: blue;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 }
 
@@ -112,13 +133,10 @@ a:hover {
 }
 
 .footerLink, .copyright {
-	padding: 10px;
-	/* background-color: red; */
-}
-
-.footerLink {
+	padding: 20px;
 }
 
 .copyright {
 	color: white;
 }
+/* end footer styles */
