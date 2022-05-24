@@ -30,7 +30,26 @@ function createButtonListener() {
     };
     addBookToLibrary(libraryBook)
     console.log(myLibrary)
+    createCard(libraryBook)
   }
 }
+
+// create book card element
+function createCard(libraryBook) {
+  // loops through the items in the libraryBook object and creates a div with textContent = submitted values appended below cardHolder
+
+  const cardHolder = document.querySelector(".cardHolder")
+  const card = document.createElement("div")
+  card.classList.add("card")
+  cardHolder.appendChild(card)
+
+  for (key in libraryBook) {
+    console.log(libraryBook[key])
+    property = document.createElement("div")
+    property.textContent = libraryBook[key]
+    card.appendChild(property)
+  }
+}
+
 
 createButtonListener()
