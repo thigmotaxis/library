@@ -1,4 +1,17 @@
+let myLibrary = [];
+createNewBookListener()
+
 // Function definitions
+// creates
+function createNewBookListener() {
+  const btn = document.querySelector("#addBook")
+  btn.onclick = () => {
+    addBookToLibrary()
+    const obj = createCard(myLibrary)
+    createCardContent(obj)
+  }
+}
+
 
 // Book constructor
 function Book () {
@@ -14,22 +27,24 @@ function addBookToLibrary() {
   myLibrary.push(libraryBook)
   return myLibrary
 }
-// iterates through myLibrary creating a .card div with textContent = array index for each item and appending it to cardHolder
-function createCards(array) {
+// creates a .card div with textContent = Card #array.length -1 and appends it to cardHolder
+function createCard(array) {
   let cardHolder = document.querySelector(".cardHolder")
-  for (let item in array){
-    const card = document.createElement("div")
-    card.textContent = `Card #${item}`;
-    cardHolder.appendChild(card)
-  }
+  const card = document.createElement("div")
+  card.setAttribute("data-index", `${array.length-1}`)
+  card.classList.add("card")
+  cardHolder.appendChild(card)
+  return array[array.length-1]
   // console.log(card.textContent)
 }
 
-// global variable instantiations
-let myLibrary = [{"hi": 4}, {"hello": 3}];
-
-// function invocations
-console.log(myLibrary);
-let newBook = addBookToLibrary();
-addBookToLibrary()
-createCards(newBook)
+// loops through each property in the Book object, creating a div for each containing it's value
+function createCardContent(obj) {
+  const targetCard = document.querySelector(`[data-index="${myLibrary.length-1}"]`)
+  for (const property in obj) {
+    let cardContent = document.createElement("div");
+    cardContent.textContent = `${property[0].toUpperCase() + property.slice(1)}: ${obj[property]}`
+    cardContent.classList.add("property")
+    targetCard.appendChild(cardContent)
+  }
+}
