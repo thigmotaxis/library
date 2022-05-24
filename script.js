@@ -4,8 +4,8 @@ let myLibrary = [];
 function Book () {
   this.title = document.querySelector("#title").value
   this.author = document.querySelector("#author").value
-  this.pageCount = document.querySelector("#pageCount").value
-  this.hasRead = document.querySelector("#hasRead").value
+  this.pages = document.querySelector("#pages").value
+  this.read = document.querySelector("#read").value
 }
 // appends the parameter book to the library[] array
 function addBookToLibrary(book) {
@@ -46,7 +46,7 @@ function createCard(libraryBook) {
   for (key in libraryBook) {
     console.log(libraryBook[key])
     property = document.createElement("div")
-    property.textContent = libraryBook[key]
+    property.textContent = `${key[0].toUpperCase() + key.slice(1)}: ${libraryBook[key]}`
     card.appendChild(property)
   }
 }

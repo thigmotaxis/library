@@ -48,3 +48,23 @@ table {
 }
 
 /* end of reset */
+
+.mainContent {
+  display: grid;
+  align-items: space-between;
+}
+
+.cardHolder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 20vh 20vh;
+  gap: 10px;
+}
+
+.card {
+  display: grid;
+  place-items: center;
+  border: 1px black solid;
+  background-color: red;
+  border-radius: 20px;
+}
