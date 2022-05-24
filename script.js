@@ -1,4 +1,4 @@
-let myLibrary = [];
+// Function definitions
 
 // Book constructor
 function Book () {
@@ -8,38 +8,28 @@ function Book () {
   this.read = document.querySelector("#read").value
 }
 
-// appends the parameter book to the library[] array
-function addBookToLibrary(book) {
-  myLibrary.push(book)
+// creates a new book and appends it to the library[] array
+function addBookToLibrary() {
+  const libraryBook = new Book();
+  myLibrary.push(libraryBook)
+  return myLibrary
 }
-
-const libraryBook = new Book();
-addBookToLibrary(libraryBook)
-
-function createCard() {
-  // loop to iterate through library array creating a card for each - will be saved as
-  const cardHolder = document.querySelector(".cardHolder")    // selects cardHolder div to use as a parent for divs created by the for loop
-  // lines 23 - 28 create cards and assign them a data-index property which we'll later use to reference them for the delete button
-  for (let i in myLibrary) {
-    let card = document.createElement("div");
-    card.classList.add("card")
-    card.setAttribute("data-index", i)
+// iterates through myLibrary creating a .card div with textContent = array index for each item and appending it to cardHolder
+function createCards(array) {
+  let cardHolder = document.querySelector(".cardHolder")
+  for (let item in array){
+    const card = document.createElement("div")
+    card.textContent = `Card #${item}`;
     cardHolder.appendChild(card)
-    createCardContent(myLibrary[i])
-    // console.log(myLibrary[i])
   }
+  // console.log(card.textContent)
 }
 
-// loops through each property in the Book object, creating a div for each containing it's
-function createCardContent(obj) {
-  const newCard = document.querySelector(".card")
-  for (const property in obj) {
-    let cardContent = document.createElement("div");
-    cardContent.textContent = `${property[0].toUpperCase() + property.slice(1)}: ${obj[property]}`
-    cardContent.classList.add("property")
-    newCard.appendChild(cardContent)
-    // console.log(cardContent)
-  }
-}
+// global variable instantiations
+let myLibrary = [{"hi": 4}, {"hello": 3}];
 
-createCard()
+// function invocations
+console.log(myLibrary);
+let newBook = addBookToLibrary();
+addBookToLibrary()
+createCards(newBook)
