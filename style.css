@@ -52,27 +52,30 @@ table {
 body {
 	height: 100vh;
 	display: grid;
-	grid-template-columns: 1fr 4fr;
-	grid-template-rows: repeat(6, 1fr);
+	grid-template-columns: 4fr 1fr;
+	grid-template-rows: 1fr repeat(4, 2fr) 1fr;
 	grid-template-areas:
 	"header  header"
-	"form    library"
-	"form    library"
-	"form    library"
-	"counter library"
-	;
+	"library counter"
+	"library form"
+	"library form"
+	"library form"
+	"footer  footer";
 }
 
 .header {
 	grid-area: header;
+	background-color: blue;
 }
 
 .inputForm {
 	grid-area: form;
+	background-color: brown;
 }
 
 .counter {
 	grid-area: counter;
+	background-color: orange;
 }
 
 .cardHolder {
@@ -89,4 +92,33 @@ body {
   border: 1px black solid;
   background-color: red;
   border-radius: 20px;
+}
+
+.footer {
+	grid-area: footer;
+	display: flex;
+	background-color: blue;
+	justify-content: space-between;
+	align-items: center;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+a:hover {
+	color: red;
+}
+
+.footerLink, .copyright {
+	padding: 10px;
+	/* background-color: red; */
+}
+
+.footerLink {
+}
+
+.copyright {
+	color: white;
 }
