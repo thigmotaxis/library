@@ -29,7 +29,7 @@ function addBookToLibrary() {
 }
 // creates a .card div with textContent = Card #array.length -1 and appends it to cardHolder
 function createCard(array) {
-  let cardHolder = document.querySelector(".cardHolder")
+  const cardHolder = document.querySelector(".cardHolder")
   const card = document.createElement("div")
   card.setAttribute("data-index", `${array.length-1}`)
   card.classList.add("card")
@@ -47,4 +47,11 @@ function createCardContent(obj) {
     cardContent.classList.add("property")
     targetCard.appendChild(cardContent)
   }
+  // creates removal button and event listener to delete the card on click
+  const cardHolder = document.querySelector(".cardHolder")
+  const removeButton = document.createElement("button")
+  removeButton.setAttribute("id", "removeButton")
+  removeButton.textContent = "Remove"
+  targetCard.appendChild(removeButton)
+  removeButton.onclick = () => cardHolder.removeChild(targetCard)
 }
