@@ -1,17 +1,40 @@
 let myLibrary = [];
+let counterValue = 0;
+const counter = document.querySelector(".counter")
 createNewBookListener()
+setCounter()
+
+
 
 // Function definitions
-// creates
+
+// creates newBook event listener
+function setCounter() {
+  counter.textContent = `Books in Library: ${counterValue}`
+}
+
+function incrementCounter() {
+  counterValue ++;
+  counter.textContent = `Books in Library: ${counterValue}`
+  if (counterValue === 10) {
+    alert("maybe try going outside for a bit, pointdexter")
+  }
+}
+
+function decrementCounter() {
+  counterValue --;
+  counter.textContent = `Books in Library: ${counterValue}`
+}
+
 function createNewBookListener() {
   const btn = document.querySelector("#addBook")
   btn.onclick = () => {
     addBookToLibrary()
     const obj = createCard(myLibrary)
     createCardContent(obj)
+    incrementCounter()
   }
 }
-
 
 // Book constructor
 function Book () {
@@ -53,5 +76,8 @@ function createCardContent(obj) {
   removeButton.setAttribute("id", "removeButton")
   removeButton.textContent = "Remove"
   targetCard.appendChild(removeButton)
-  removeButton.onclick = () => cardHolder.removeChild(targetCard)
+  removeButton.onclick = () => {
+    cardHolder.removeChild(targetCard)
+    decrementCounter()
+  }
 }
