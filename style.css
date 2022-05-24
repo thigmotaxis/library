@@ -51,7 +51,6 @@ table {
 
 .mainContent {
   display: grid;
-  align-items: space-between;
 }
 
 .cardHolder {

@@ -7,9 +7,11 @@ function Book () {
   this.pages = document.querySelector("#pages").value
   this.read = document.querySelector("#read").value
 }
+
 // appends the parameter book to the library[] array
 function addBookToLibrary(book) {
   myLibrary.push(book)
+  createCard(book)
 }
 
 function createBook() {
@@ -19,8 +21,8 @@ function createBook() {
 
 // creates event listener to create new books and add them to the library array
 
-function createButtonListener() {
-  const btn = document.querySelector("#btn");
+function createAddButtonListener() {
+  const btn = document.querySelector("#addBook");
   btn.onclick = () => {
     // calls createBook which creates a libraryBook object which is passed to addBookToLibrary, which pushes the object to the myLibrary array
     let libraryBook = createBook()
@@ -30,7 +32,7 @@ function createButtonListener() {
     };
     addBookToLibrary(libraryBook)
     console.log(myLibrary)
-    createCard(libraryBook)
+    createRemoveButtonListener()
   }
 }
 
@@ -44,12 +46,21 @@ function createCard(libraryBook) {
   cardHolder.appendChild(card)
 
   for (key in libraryBook) {
-    console.log(libraryBook[key])
     property = document.createElement("div")
     property.textContent = `${key[0].toUpperCase() + key.slice(1)}: ${libraryBook[key]}`
     card.appendChild(property)
   }
+  // adds remove button to each card
+  const btn = document.createElement("button")
+  btn.textContent = "Remove";
+  btn.setAttribute("id", "removeBook")
+  card.appendChild(btn)
 }
 
+// creates remove button listener
+function createRemoveButtonListener() {
+  const btn = document.querySelector("#removeBook");
+  btn.onclick = () => console.log("hi")
+}
 
-createButtonListener()
+createAddButtonListener()
