@@ -1,28 +1,43 @@
 let myLibrary = [];
-let counterValue = 0;
-const counter = document.querySelector(".counter")
+let libraryCounter = 0;
+let readCounter = 0;
+let unreadCounter = 0;
+const counters = document.querySelectorAll(".counter")
 createNewBookListener()
-setCounter()
-
-
+setCounters()
 
 // Function definitions
 
-// creates newBook event listener
-function setCounter() {
-  counter.textContent = `Books in Library: ${counterValue}`
+function setCounters() {
+  counters.forEach((counter) => {
+    if (counter.id === "total") {
+      counter.textContent = `Books in Library: ${libraryCounter}`;
+    }
+    if (counter.id === "booksRead") {
+      counter.textContent = `Books Read: ${readCounter}`;
+    }
+    if (counter.id === "booksUnread") {
+      counter.textContent = `Books to Read: ${unreadCounter}`;
+    }
+  })
 }
-
 function incrementCounter() {
-  counterValue ++;
-  counter.textContent = `Books in Library: ${counterValue}`
+  libraryCounter ++;
+  if(myLibrary[myLibrary.length-1].read === "Yes") {
+    readCounter ++;
+  }
+  else unreadCounter ++
+  setCounters()
 }
 
-function decrementCounter() {
-  counterValue --;
-  counter.textContent = `Books in Library: ${counterValue}`
+function decrementCounter(targetCard) {
+  libraryCounter --;
+  if(targetCard.dataset.read === "Yes") readCounter --;
+  else unreadCounter --;
+  setCounters()
 }
 
+// creates newBook event listener
 function createNewBookListener() {
   const btn = document.querySelector("#addBook")
   btn.onclick = () => {
@@ -53,11 +68,9 @@ function createCard(array) {
   const card = document.createElement("div")
   card.setAttribute("data-index", `${array.length-1}`)
   card.setAttribute("data-read", `${array[array.length-1].read}`)
-  console.log(array)
   card.classList.add("card")
   cardHolder.appendChild(card)
   return array[array.length-1]
-  // console.log(card.textContent)
 }
 
 // loops through each property in the Book object, creating a div for each containing it's value
@@ -77,6 +90,6 @@ function createCardContent(obj) {
   targetCard.appendChild(removeButton)
   removeButton.onclick = () => {
     cardHolder.removeChild(targetCard)
-    decrementCounter()
+    decrementCounter(targetCard)
   }
 }

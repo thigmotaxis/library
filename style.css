@@ -93,9 +93,15 @@ body {
 	background-color: brown;
 }
 
-.counter {
+.counterBox {
 	grid-area: counter;
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr;
 	background-color: orange;
+}
+
+.counter {
+	padding: 12px;
 }
 
 .cardHolder {
