@@ -16,9 +16,6 @@ function setCounter() {
 function incrementCounter() {
   counterValue ++;
   counter.textContent = `Books in Library: ${counterValue}`
-  if (counterValue === 10) {
-    alert("maybe try going outside for a bit, pointdexter")
-  }
 }
 
 function decrementCounter() {
@@ -41,7 +38,7 @@ function Book () {
   this.title = document.querySelector("#title").value
   this.author = document.querySelector("#author").value
   this.pages = document.querySelector("#pages").value
-  this.read = document.querySelector("#read").value
+  this.read = document.querySelector("#read").checked === true ? "Yes" : "No"
 }
 
 // creates a new book and appends it to the library[] array
@@ -55,6 +52,8 @@ function createCard(array) {
   const cardHolder = document.querySelector(".cardHolder")
   const card = document.createElement("div")
   card.setAttribute("data-index", `${array.length-1}`)
+  card.setAttribute("data-read", `${array[array.length-1].read}`)
+  console.log(array)
   card.classList.add("card")
   cardHolder.appendChild(card)
   return array[array.length-1]

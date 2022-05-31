@@ -115,6 +115,10 @@ body {
 	margin: 10px;
 }
 
+[data-read="Yes"] {
+	background-color: green;
+}
+
 /* begin footer styles */
 .footer {
 	grid-area: footer;
