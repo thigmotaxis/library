@@ -1,15 +1,4 @@
-const container = document.querySelector(".formContainer")
-const btn = document.querySelector(".newBook")
-let i = 0
-btn.onclick = () => {
-  while (i < 5) {                               // prevents more than 5 input/label pairs from being generated
-  const list = createList()
-  const listItem = createListItem(list)
-    createLabels(listItem)
-    createInputs(listItem)
-  i ++
-  }
-}
+// form and widget creation functions
 
 function createList() {
   const list = document.createElement("ul")
@@ -52,19 +41,19 @@ function createInputs(parent) {
   const input = document.createElement("input")
   if (parent.dataset.index === "0") {
     input.setAttribute("type", "text")
-    input.setAttribute("id", "#author")
+    input.setAttribute("id", "author")
     input.setAttribute("required", "")
     parent.appendChild(input)
   }
   if (parent.dataset.index === "1") {
     input.setAttribute("type", "text")
-    input.setAttribute("id", "#title")
+    input.setAttribute("id", "title")
     input.setAttribute("required", "")
     parent.appendChild(input)
   }
   if (parent.dataset.index === "2") {
     input.setAttribute("type", "number")
-    input.setAttribute("id", "#pageCount")
+    input.setAttribute("id", "pageCount")
     input.setAttribute("required", "")
     parent.appendChild(input)
   }
@@ -80,4 +69,39 @@ function createInputs(parent) {
     input.setAttribute("value", "Submit")
     parent.appendChild(input)
   }
+}
+// create form and widgets
+
+const container = document.querySelector(".formContainer")
+const btn = document.querySelector(".newBook")
+let i = 0
+btn.onclick = () => {
+  while (i < 5) {                               // prevents more than 5 input/label pairs from being generated
+  const list = createList()
+  const listItem = createListItem(list)
+    createLabels(listItem)
+    createInputs(listItem)
+  i ++
+  }
+  addBookToLibrary()
+}
+
+// adds a listener to the form submit button to create a new object
+document.querySelector('form').onsubmit = function(e) {
+   e.preventDefault();
+ }
+
+function addBookToLibrary() {
+  const subButton = document.querySelector("#submit")
+  subButton.onclick = () => {
+    const libraryBook = new Book()
+    console.log(libraryBook)
+  }
+}
+
+
+function Book () {
+  this.author = document.querySelector("#author").value
+  this.title = document.querySelector("#title").value
+  this.pageCount = document.querySelector("#pageCount").value
 }
