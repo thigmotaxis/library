@@ -26,7 +26,7 @@ function createLabels(parent) {
     parent.appendChild(label)
   }
   if (parent.dataset.index === "2") {
-    label.setAttribute("for", "#pageCount")
+    label.setAttribute("for", "#pages")
     label.textContent = "Page Count: "
     parent.appendChild(label)
   }
@@ -53,7 +53,7 @@ function createInputs(parent) {
   }
   if (parent.dataset.index === "2") {
     input.setAttribute("type", "number")
-    input.setAttribute("id", "pageCount")
+    input.setAttribute("id", "pages")
     input.setAttribute("required", "")
     parent.appendChild(input)
   }
@@ -72,6 +72,7 @@ function createInputs(parent) {
 }
 // create form and widgets
 
+let myLibrary = []
 const container = document.querySelector(".formContainer")
 const btn = document.querySelector(".newBook")
 let i = 0
@@ -94,20 +95,22 @@ function addBookToLibrary() {
   const subButton = document.querySelector("#submit")
   subButton.onclick = () => {
     const libraryBook = new Book()
+    myLibrary.push(libraryBook)
+    console.log(myLibrary)
     const allFieldsFilled = checkPropertiesHaveValues(libraryBook)
     if(allFieldsFilled === true) {
-      makeCard(libraryBook)
+      const card = makeCard(libraryBook)
+      populateCard(card, libraryBook)
       removeForm()
     }
-    else alert("Please Fill All Fields")
-    // document.querySelector("#author").value
+    else alert("Please Fill Out All Fields")
   }
 }
 
 function Book () {
   this.author = document.querySelector("#author").value
   this.title = document.querySelector("#title").value
-  this.pageCount = document.querySelector("#pageCount").value
+  this.pages = document.querySelector("#pages").value
 }
 
 function checkPropertiesHaveValues(object) {
@@ -120,5 +123,31 @@ function checkPropertiesHaveValues(object) {
 }
 
 function makeCard(object) {
+  const parent = document.querySelector(".cardContainer")
+  const card = document.createElement("div")
+  card.classList.add("card")
+  card.setAttribute("data-index", `${myLibrary.length-1}`)
+  parent.appendChild(card)
+  return card
+}
+
+function populateCard(card, object) {
+  for (property in object) {
+    prop = document.createElement("div")
+    prop.classList.add("property")
+    prop.textContent = `${property[0].toUpperCase() + property.slice(1)}: ${object[property]}`
+
+    card.appendChild(prop)
+  }
   console.log(object)
+}
+
+function removeForm() {
+  let child = container.firstElementChild
+  while (child) {
+    child.remove()
+    child = container.firstElementChild
+  }
+  // select nodelist of ul children of form container, loop through nodelist removing each child
+  console.log(child)
 }
