@@ -85,7 +85,6 @@ btn.onclick = () => {
   }
   addBookToLibrary()
 }
-
 // adds a listener to the form submit button to create a new object
 document.querySelector('form').onsubmit = function(e) {
    e.preventDefault();
@@ -95,13 +94,31 @@ function addBookToLibrary() {
   const subButton = document.querySelector("#submit")
   subButton.onclick = () => {
     const libraryBook = new Book()
-    console.log(libraryBook)
+    const allFieldsFilled = checkPropertiesHaveValues(libraryBook)
+    if(allFieldsFilled === true) {
+      makeCard(libraryBook)
+      removeForm()
+    }
+    else alert("Please Fill All Fields")
+    // document.querySelector("#author").value
   }
 }
-
 
 function Book () {
   this.author = document.querySelector("#author").value
   this.title = document.querySelector("#title").value
   this.pageCount = document.querySelector("#pageCount").value
+}
+
+function checkPropertiesHaveValues(object) {
+  for(property in object) {
+    if (object[property] === "") {
+    return false
+    }
+  }
+  return true
+}
+
+function makeCard(object) {
+  console.log(object)
 }
