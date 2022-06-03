@@ -1,3 +1,34 @@
+// counter handling functions
+
+function setCounters() {
+  counters.forEach((counter) => {
+    if (counter.id === "total") {
+      counter.textContent = `Books in Library: ${libraryCounter}`;
+    }
+    if (counter.id === "booksRead") {
+      counter.textContent = `Books Read: ${readCounter}`;
+    }
+    if (counter.id === "booksUnread") {
+      counter.textContent = `Books to Read: ${unreadCounter}`;
+    }
+  })
+}
+function incrementCounter() {
+  libraryCounter ++;
+  if(myLibrary[myLibrary.length-1].read === "Yes") {
+    readCounter ++;
+  }
+  else unreadCounter ++
+  setCounters()
+}
+
+function decrementCounter(targetCard) {
+  libraryCounter --;
+  if(targetCard.dataset.read === "Yes") readCounter --;
+  else unreadCounter --;
+  setCounters()
+}
+
 // form and widget creation functions
 
 function createList() {
@@ -6,7 +37,7 @@ function createList() {
   return list;
 }
 
-function createListItem(parent) {
+function createListItem(parent, i) {
   const listItem = document.createElement("li")
   listItem.setAttribute("data-index", i)
   parent.appendChild(listItem)
@@ -73,13 +104,18 @@ function createInputs(parent) {
 // create form and widgets
 
 let myLibrary = []
+let libraryCounter = 0;
+let readCounter = 0;
+let unreadCounter = 0;
+const counters = document.querySelectorAll(".counter")
+setCounters()
 const container = document.querySelector(".formContainer")
 const btn = document.querySelector(".newBook")
-let i = 0
 btn.onclick = () => {
+  let i = 0
   while (i < 5) {                               // prevents more than 5 input/label pairs from being generated
   const list = createList()
-  const listItem = createListItem(list)
+  const listItem = createListItem(list, i)
     createLabels(listItem)
     createInputs(listItem)
   i ++
@@ -95,15 +131,13 @@ function addBookToLibrary() {
   const subButton = document.querySelector("#submit")
   subButton.onclick = () => {
     const libraryBook = new Book()
-    myLibrary.push(libraryBook)
-    console.log(myLibrary)
     const allFieldsFilled = checkPropertiesHaveValues(libraryBook)
     if(allFieldsFilled === true) {
+      myLibrary.push(libraryBook)
       const card = makeCard(libraryBook)
       populateCard(card, libraryBook)
       removeForm()
     }
-    else alert("Please Fill Out All Fields")
   }
 }
 
@@ -111,6 +145,7 @@ function Book () {
   this.author = document.querySelector("#author").value
   this.title = document.querySelector("#title").value
   this.pages = document.querySelector("#pages").value
+  this.read = document.querySelector("#read").checked === true ? "Yes" : "No"
 }
 
 function checkPropertiesHaveValues(object) {
@@ -127,6 +162,7 @@ function makeCard(object) {
   const card = document.createElement("div")
   card.classList.add("card")
   card.setAttribute("data-index", `${myLibrary.length-1}`)
+  card.setAttribute("data-read", `${myLibrary[myLibrary.length-1].read}`)
   parent.appendChild(card)
   return card
 }
@@ -136,10 +172,18 @@ function populateCard(card, object) {
     prop = document.createElement("div")
     prop.classList.add("property")
     prop.textContent = `${property[0].toUpperCase() + property.slice(1)}: ${object[property]}`
-
     card.appendChild(prop)
   }
-  console.log(object)
+
+  const removeButton = document.createElement("button")
+  const parent = document.querySelector(".cardContainer")
+  removeButton.textContent = "Remove"
+  removeButton.setAttribute("id", "removeButton")
+  card.appendChild(removeButton)
+  removeButton.onclick = () => {
+    parent.removeChild(card)
+    // decrementCounter(card)
+  }
 }
 
 function removeForm() {
@@ -148,6 +192,4 @@ function removeForm() {
     child.remove()
     child = container.firstElementChild
   }
-  // select nodelist of ul children of form container, loop through nodelist removing each child
-  console.log(child)
 }
