@@ -88,23 +88,10 @@ body {
 
 /* end header styles */
 
-.inputForm {
-	grid-area: form;
-	background-color: brown;
-}
 
-.counterBox {
-	grid-area: counter;
-	display: grid;
-	grid-template-rows: 1fr 1fr 1fr;
-	background-color: orange;
-}
+/* begin library styles */
 
-.counter {
-	padding: 12px;
-}
-
-.cardHolder {
+.cardContainer {
 	grid-area: library;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -124,6 +111,41 @@ body {
 [data-read="Yes"] {
 	background-color: green;
 }
+
+/* end library styles */
+
+/* begin counterbox styles */
+
+.counterBox {
+	grid-area: counter;
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr;
+	background-color: orange;
+}
+
+.counter {
+	padding: 12px;
+}
+
+/* end counterbox styles */
+
+/* begin form styles */
+
+.form {
+	grid-area: form;
+	display: grid;
+	grid-template-rows: 2fr 1fr;
+	grid-template-areas:
+	"form"
+	"newBook"
+}
+
+.newBook {
+	place-self: center;
+	padding: 12px;
+}
+
+/* end form styles */
 
 /* begin footer styles */
 .footer {
