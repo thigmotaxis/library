@@ -112,6 +112,10 @@ setCounters()
 const container = document.querySelector(".formContainer")
 const btn = document.querySelector(".newBook")
 btn.onclick = () => {
+  if (container.firstChild) {
+    alert("Please fill out the form before adding another book")
+    return                                      // prevents multiple forms from being generated
+  }
   let i = 0
   while (i < 5) {                               // prevents more than 5 input/label pairs from being generated
   const list = createList()
