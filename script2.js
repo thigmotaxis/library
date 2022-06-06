@@ -13,9 +13,9 @@ function setCounters() {
     }
   })
 }
-function incrementCounter() {
+function incrementCounter(array) {
   libraryCounter ++;
-  if(myLibrary[myLibrary.length-1].read === "Yes") {
+  if(array[array.length-1].read === "Yes") {
     readCounter ++;
   }
   else unreadCounter ++
@@ -140,6 +140,7 @@ function addBookToLibrary() {
       myLibrary.push(libraryBook)
       const card = makeCard(libraryBook)
       populateCard(card, libraryBook)
+      incrementCounter(myLibrary)
       removeForm()
     }
   }
@@ -186,7 +187,7 @@ function populateCard(card, object) {
   card.appendChild(removeButton)
   removeButton.onclick = () => {
     parent.removeChild(card)
-    // decrementCounter(card)
+    decrementCounter(card)
   }
 }
 
