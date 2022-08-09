@@ -146,12 +146,15 @@ function addBookToLibrary() {
   }
 }
 
-function Book () {
-  this.author = document.querySelector("#author").value
-  this.title = document.querySelector("#title").value
-  this.pages = document.querySelector("#pages").value
-  this.read = document.querySelector("#read").checked === true ? "Yes" : "No"
+class Book {
+  constructor() {
+    this.author = document.querySelector("#author").value
+    this.title = document.querySelector("#title").value
+    this.pages = document.querySelector("#pages").value
+    this.read = document.querySelector("#read").checked === true ? "Yes" : "No"
+  }
 }
+
 
 function checkPropertiesHaveValues(object) {
   for(property in object) {
